@@ -330,21 +330,33 @@ c - 8연결성으로 찾아서 3개
 : 원래 영역 크기를 유지  
 : 팽창 후 침식  
 
+팽창(dilation)  
+dXd 의 사각형 A  
+structuring element(d/4 X d/4인 사각형 B)  
+팽창 시 d/8 만큼 늘어남  
+dXd 의 사각형 A  
+structuring element(d/4 X d 인 사각형 B)  
+팽창 시 가로 면 d/8 만큼, 세로 면 d/2 만큼 늘어남  
 
+팽창의 예시 - 지워진 글씨 인식률 높이기 (4-연결성과 비슷한 모양으로 연산 시 인식이 높아짐)  
 
+침식(erosion)  
+structuring element가 다 1인 경우를 남기고 지움  
+dXd 의 사각형 A  
+structuring element(d/4 X d/4인 사각형 B)  
+침식 시 d/8 만큼 줄어듬   
+dXd 의 사각형 A  
+SE(structuring element)(d/4 X d 인 사각형 B)  
+침식 시 가로 d/8 만큼 줄고, 기준 점만 남음    
 
+SE가 커질수록 더 굵은 선을 제거함  
+노이즈 제거(크기가 작을 때)  
 
-
-
-
-
-
-
-
-
-
-
-
+연습문제1 축소에선 남아나는 게 없음  
+지문을 처리할 때 팽창과 침식 모두 진행함  
+-Opening: Erosion -> Dilation 침식, 팽창  
+-Closing: Dilation -> Erosion 팽창, 침  
+이미지 크기가 많이 바뀌지 않게 함  
 
 
 
