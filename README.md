@@ -248,10 +248,31 @@ opencv (0, 0) (x, y)
 왼쪽 위가 (0,0)   
 x는 오른쪽으로 y는 아래쪽으로   
 
+----
 
+## 4주차 영상 처리 
+### 01 디지털 영상 02 이진 영상 03 점 연산, 영역 연산, 기하 연산
+### cv 
+cv 왼쪽 위 좌표 (0, 0)   
+OpenCV에서 이미지는 numpy.ndarray 클래스로 표현됨  
+그러므로 numpy.ndarray가 지원하는 다양한 함수를 사용할 수 있음   
+(예) min, max, argmin, argmax, mean, sort, reshape, transpose, … …    
+### 영상 종류  
+명암 영상 2차원 텐서     
+컬러 영상 3차원 텐서   
+컬러 동영상 4차원 텐서 (t 시간 축)   
+의료/군사 영상 (다분광/초분광/MR(MRI)/CT 영상) 고차원 텐서  
+RGB-D 영상 4차원 텐서 (RGB + D) Depth 가 추가됨. 자율주행(급정거)같은 기술에서 사용  
+점 구름 영상 라이다 (LiDAR: Light Detection and Ranging 빛 감지 후 거리 측정)로 획득 깊이 측정(자율주행)  
 
-
-
+RGB(빛의 삼원색)  
+혼합, RGB 큐브, 양자화된 RGB 큐브(양자화 단계에 따라 다양하게 표현가능)  
+CMY( 프린트 색의 삼원색: Cyan, Magenta, Yellow : CMYK+ 검정(Key plate))   
+HSV  
+H(Hue): 색상, 색의 종류(빨, 파, 초 등)  
+S(Saturation): 채도, 색의 선명한 정도(진하기)   
+V(Value): 명암, 밝은 정도  
+LAB  
 
 
 
