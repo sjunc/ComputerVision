@@ -961,6 +961,45 @@ MSE 와 교차엔트로피 모두 예측이 틀릴 수록 값이 커지는 걸 �
 • 학습할 때만 적용하고 예측(추론) 과정에서는 적용 안함   
 #### 조기 멈춤(Early Stopping)
 • 성능 향상이 없으면 설정한 epoch 이전에 학습을 멈춤  
+
+## 11주차 전이학습과 백본 모델
+전이 학습(Transfer Learning)   
+어떤 도메인의 데이터로 학습한 모델을 다른 도메인에 적용하여 성능을 향상하는 방법   
+백본 모델(Backbone Model)  
+CNN, Vision Transformer와 같은 특징 추출기(Feature Extractor) 역할을 하는 기본 신경망 구조  
+즉, 이미지 데이터를 다루는 모델에서는 전체 모델의 뼈대로서 이미지를 입력받아 의미 있는 특징(feature map)을 뽑아내는 부분을 뜻함  
+
+|분야|백본|
+|--|--|
+|객체 탐지 (Object Detection)|ResNet, CSPDarkNet|
+|분할 (Segmentation) |ResNet, Xception, Swin|
+|영상 분류 (Video Classfication)|3D ResNet|
+|멀티모달 (Vision + Language) | CLIP-ViT |
+
+유명한 사전 학습 모델
+- VGGNet: 옥스퍼드 대학이 제작. 3*3 작은 마스크 사용하고, 학습할 수 있는 층의 깊이를 16으로 깊게 만듦  
+- GoogLeNet: 구글이 제작. 네트워크 속의 네트워크 아이디어 적용 - Inception 모듈  
+- ResNet: 마이크로소프트가 제작. 지름길(숏컷) 연결 적용  
+
+GoogLeNet: Inception module로 다양한 시각에서 이미지를 바라볼 수 있으며 동시에 4가지의 연산이 병렬로 진행되어 GPU를 효율적으로 사용할 수 있음  
+ResNet: 숏컷을 활용하여, 예전 레이어에 있던 정보가 소실되는 것을 완화할 수 있음(Skip Connection) 기존의 CNN보다 층을 훨씬 깊게 쌓을 수 있음.   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ......  
 
 
