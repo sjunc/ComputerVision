@@ -1089,20 +1089,60 @@ mAP 값으로서 성능을 측정함
 • 5단계: 각 클래스의 AP 계산
 • 6단계: 데이터셋 내의 모든 클래스에 대한 mAP 계산
 
+## 12주차 추적(Tracking)  
+• 비디오에서 같은 물체를 시간에 따라 계속 식별하고 위치를 추적하는 문제  
+• 단순 검출과 다르게, 프레임간 연속성을 유지하는 것이 핵심  
+• 고전 Tracking 방식: KLT(Kanade-Lucas-Tomasi) Tracker  
+• 지역 특징점 기반으로 추정하며, 밝기가 변하지 않는다고 가정한 알고리즘  
+• 물체가 가려졌다 나타나면 연결이 불가능하며, 특징점이 없는 물체는 추적이 불가한 등 성능이 낮았음  
+• 현대 - 딥러닝의 도입으로 Tracking이 두 방향으로 확장함  
+• 크게 Detection 기반의 추적과 Segmentation 기반의 추적으로 나눌 수 있음  
+   
+처리 방식 - Batch 방식과 Online 방식  
+Batch 방식  
+• t시점을 처리할 때, 미래의 프레임(t+1, t+2)을 사용하여 추적할 수 있음  
+• (예) 녹화된 경기를 분석하여 선수의 장단점 파악, 녹화 영상의 데이터 처리   
+Online 방식  
+• 과거의 프레임만 사용하여 추적할 수 있음  
+• (예) 실시간 감시, 자율주행자동차의 카메라  
+카메라 구성 - Single/Multi  
+Single-camera Tracking(단일 카메라 추적)  
+• 일반 VOT (Visual Object Tracking 단일 물체) 와 MOT MOT(Multiple Object Tracking 다중 물체)   
+Multi-camera Tracking(다중 카메라 추적)   
+• 수초 내지 수분이 지난 후, 다른 카메라에 나타나는 동일한 물체를 이어주는 장기 재식별이 필요함   
+• (예) 쇼핑몰 고객의 이동 경로, 도시 차량 흐름 분석  
+  
+Box Tracking(박스 추적)  
+• Bounding box 기반으로, 박스 모양으로 영역을 추정  
+Mask Tracking(영역 추적)  
+• 물체 영역을 정확히 추적함(픽셀 단위의 영역을 세밀하게 추적함  
+  
+### 추적의 처리 과정
+1. 검출(Detection)  
+2. 특징 추출(Feature Extraction)  
+3. 거리 계산(Distance Matrix Computation)  
+4. 쌍 맺기(Matching, Assignment)  
 
+1. 검출(Detection)  
+• 현재 프레임에서 존재하는 객체를 찾아냄  
+• (예) 사람, 자동차 등 추적을 원하는 특정 클래스만 남겨둠  
+• 사용 모델 - YOLO, Faster R-CNN, Mask R-CNN, SSD 등  
+• 출력: 객체별 bounding box, confidence score, class label  
 
+2. 특징 추출(Feature Extraction)  
+• 각 객체를 구분할 수 있는 특징 벡터(embedding vector) 생성  
+• (예) 사람의 ID를 구분할 수 있는 얼굴, 옷, 형태 등의 패턴 추출  
+• 출력: 같은 객체인지 판단할 embedding vector  
 
+3. 거리 계산(Distance Matrix Computation)  
+• 이전 프레임의 객체들과 현재 프레임의 객체들을 비교하여 유사도 또는 거리를 계산함  
+• 출력: 객체 간 거리 행렬(cost matrix)  
+• 값이 작을수록 같은 객체일 가능성이 높음  
 
-
-
-
-
-
-
-
-
-
-
+4. 쌍 맺기(Matching, Assignment)  
+• 이전 단계에서 구해진 거리 행렬을 기반으로 이전 프레임의 객체 ID와 현재 객체를 연결함  
+• 사용 알고리즘 - 헝가리안 알고리즘(Hungarian Algorithm): 전체적으로 비용이 가장 작은 매칭 조합 선택   
+• 매칭 실패시 새로운 객체로 간주, 매칭 성공시 같은 ID 유지, 필요시 재식별 알고리즘 적용  
 
 
 
