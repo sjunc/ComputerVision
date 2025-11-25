@@ -1,36 +1,42 @@
 import numpy as np
+import cv2 as cv
 import sys
-import cv2 as cv 
 
-a = np.array([4, 5, 0, 1, 2, 3, 6, 7, 9, 8, 10, 11])
-print(a)
-print(type(a))
-print(a.shape)
-a.sort()
-print(a)
+def draw_OpticalFlow(img, flow, step = 16):
+    for y in range(step//2, frame.shape[0], step):
+        for x in range(step//2, frame.shape[1], step):
+            dx, dy = flow[y, x].astype(np.int)
+            if(dx*dx+ dy*dy)>1:
+                cv.line(img, (x,y), (x+dx, y+dx), (0, 0, 255), 2)
+            else:
+                cv.line(img, (x, y), (x, dx, y + dy), (0,255, 0), 2)
+                
+    
+    cap = cv.VideoCapture(0, cv.CAP_DSHOW)
+    if not cap.isOpened(): sys.exit('Failed to connect camera')
+    prev = None
+    
+    while(1):
+        ret, frame = cap.read()
+        if not ret: sys('Exit to Loop to Failed to get Frame')
+        
+        if prev is None:
+            prev = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+            continue
+        
+        curr = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+        flow = cv.calcOpticalFlowFarneback(prev, curr, None, 0.5, 3, 15, 3, 5, 1.2, 0)
+        
+        draw_OpticalFlow(frame, flow)
+        cv.imshow('Optical flow', frame)
+        
+        prev = curr
+        
+        key = cv.waitKey(1)
+        if key==ord('q'):
+            break
+    
+    cap.release()
+    cv.destroyAllWindows()
+    
 
-b = np.array([-4.3, -2.3, 12.9, 8.99, 10.1, -1.2])
-b.sort()
-print(b)
-
-c = np.array(['one', 'two', 'three', 'four', 'five', 'seven', 'six'])
-c.sort()
-print(c)
-
-type(c)
-dir(c) # 사용 가능한 멤버 함수를 알려주는 함수
-help(c.sort) # 함수가 하는 일에 대한 설명을 해주는 함수
-img = cv.imread('soccer.jpg') #imread image read
-
-if img is None: 
-    sys.exit('file not founded') # 1초 = 1000ms 20초 20000 ms
-
-print(img[0,0])
-print(img[0,0,0], img[0,0,1], img[0,0,2])
-
-
-
-
-cv.imshow('Image Display', img) # 윈도우에 영상 표시
-cv.waitKey() # 키보드 입력 대기 0 ()공란: 무한정 대기
-cv.destroyAllWindows() # 창 종료 
