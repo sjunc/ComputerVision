@@ -1145,6 +1145,90 @@ Mask Tracking(영역 추적)
 • 매칭 실패시 새로운 객체로 간주, 매칭 성공시 같은 ID 유지, 필요시 재식별 알고리즘 적용  
 
 
+## 13주차 Vision Transformer
+### Transformer  
+논문 '**Attention** Is All You Need'(2017)에서 소개된 딥러닝 모델    
+순차적 처리 없이도 입력 시퀀스의 관계를 효과적으로 학습할 수 있도록 설계되었음  
+주요 특징  
+**Self-Attention** Mechanism: 입력 시퀀스 내의 모든 단어 간의 관계를 동적으로 학습함  
+Encoder-Decoder 구조 사용  
+병렬 처리: 전체 시퀀스를 동시에 처리할 수 있어 RNN(순차적으로 처리해야 함)보다 학습속도가 빠름  
+= 다양한 활용 분야: 자연어 처리, 컴퓨터 비전(ViT), 음성 처리 등 다양한 분야에 활용됨  
+
+(입력 데이터) -> 토크나이저 -> 임베딩 레이어 -> 인코더 N개 -> 디코더 N개 -> 출력층 -> (출력 결과)  
+*디코더는 순차적인 생성 작업을 할 때 필요하며, 단순 분류 목적(예: BERT)일 경우에는 필요하지 않음.   
+• 토크나이저(Tokenizer): 입력 텍스트를 토큰화하고 정수 ID 시퀀스로 인코딩함   
+• 임베딩 레이어(Embedding layer): 정수 ID 시퀀스를 각 ID에 해당하는 고차원 벡터(임베딩)로 변환하고, 위치 정보를 더함  
+• Encoder: 전체 시퀀스를 받아 각 단어가 문장 내 다른 모든 단어들과 어떤 관계를 맺고 있는지 학습   
+단어의 문맥적 의미를 보다 풍부하게 파악할 수 있음. 여러 인코더 층이 쌓여 있음  
+• Decoder: 이전에 생성한 단어들과 인코더의 출력을 입력받아 다음 단어를 순차적으로 예측함.  
+여러 디코더 층이 쌓여 있음  
+• 출력층(Output Layer): 문제 유형에 맞는 최종 결과를 생성함  
+
+### Multi-Head Self-Attention  
+Self-Attention  
+입력 시퀀스 내의 모든 단어들끼리의 관계(의존성)를 동적으로 파악하는 매커니즘  
+단어마다 문맥을 반영한 표현을 만듦   
+**!전체 토큰간의 관계를 동시에 계산함(병렬 계산)!**  
+"이 단어가 문장 내에 있는 다른 어떤 단어들과 얼마나 관련이 있을까?"를 계산하는 것  
+"The animal didn't cross the street because it was too tired."  
+단어 'it'이 가리키는 것이 무엇일까?  
+-> Self-Attention은 it이 street보다는 animal과 더 높은 관련성이 있다고 판단하도록 학습함  
+  
+Multi-Head Self-Attention  
+Self-Attention을 다양한 방식으로 여러번 실행해서 정보의 시야를 넓힘(다양한 시각으로 문장을 바라봄)  
+(예) head1 - 문법적 관계  
+(예) head2 - 의미적 유사성  
+(예) head3 - 위치 정보  
+...
+Multi-Head Self-Attention은 self-attention을 여러번하여, 서로 다른 가중치를 병렬적으로 계산 함  
+
+
+BERT(Bidirectional Encoder Representations from Transformers)  
+트랜스포머 기반 양방향 인코더 표현 모델  
+  
+GPT(Generative Pre-trained Transformer)  
+생성형 사전학습 트랜스포머 모델  
+  
+T5(Text-to-Text Transfer Transformer)  
+텍스트-투-텍스트 전이 학습 트랜스포머 모델  
+  
+BART(Bidirectional and Auto-Regressive Transformer)  
+양방향 자기회귀 트랜스포머 모델  
+  
+ViT(Vision Transformer)  
+• 트랜스포머 구조를 영상 데이터에 알맞게 변경한 모델  
+• 문장은 단어가 순서대로 배열된 1차원 구조인데, 영상은 화소가 2차원 구조로 배열  
+• 단어는 이산적인데 영상은 연속적  
+• 문장을 구성하는 단어는 수십 개인데 영상을 구성하는 화소는 수만~수백만 개  
+• 단어는 분할되어 있지만 영상은 물체와 배경이 복잡하게 섞여 있음  
+• 물체는 크기(스케일), 회전, 이동에 심한 변화가 발생  
+  
+### 비전 트랜스포머 
+ViT(Vision Transformer)의 구조  
+영상 분류에서는 Class의 확률 벡터를 출력하면 되기 때문에 인코더만 사용   
+인코더는 특징 맵을 softmax를 통해 부류(class) 확률 벡터로 변환하여 출력  
+자연어 트랜스포머의 단어 -> 픽셀, 디코더 사라진 경우  
+
+
+(실습) 
+DETR 박스 검출    
+CLIP 관련성 있는 캡션  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
