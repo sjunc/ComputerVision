@@ -1215,7 +1215,28 @@ ViT(Vision Transformer)의 구조
 DETR 박스 검출    
 CLIP 관련성 있는 캡션  
 
+## 14주차 3차원 비전
+기말, 코드 빈칸 문제 다수 예정   
+ 
+# Point Cloud   
+• 3차원 공간 안의 점들을 모아놓은 데이터 구조  
+• 실세계의 3D 형태를 수많은 작은 점들로 표현한 데이터   
+• LiDAR(Light Detection And Ranging), Depth Camera, Stereo Camera 등을 통해 형성됨   
+• LiDAR: 레이저를 발사하여 반사되어 들어오는 시간을 측정하여 물체와의 거리를 계산해얻음   
+• Stereo Camera(스테레오 비전): 카메라 두 대의 시차(disparity)를 이용해 깊이를 계산함   
+PointNet   
+• 3D Point Cloud를 입력으로 받아 처리하는 딥러닝 모델   
+• 용도: 3D 객체 분류, 3D 객체 분할, Scene Segmentation    
+• 기존 CNN은 격자 구조 내에 있는 이미지, voxel 등만 처리할 수 있었지만, 규칙적이지 않고순서가 없는 점들의 집합인 point cloud를 처리하기 어려움   
+이런 문제를 해결하기 위해 나온 네트워크   
+- 점의 순서와 상관없으며  
+- 3D 공간의 회전과 변환에도 불변하며  
+- 빠르고 효율적인 모델  
+3D 데이터를 격자로 변환하지 않고 그대로 처리한 모델 - N개의 점 (x, y, z) 좌표만 사용  
+PointNet 내부에는 T-Net이라는 작은 네트워크 2개가 있음  
+T-Net은 입력 점들의 회전/이동 보정 등의 역할을 하여 불변성을 확보(정규화)함   
 
+#### ModelNet 실습 -> pointNet으로 변환후  
 
 
 
